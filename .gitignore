@@ -1,0 +1,31 @@
+# 依赖
+node_modules/
+pnpm-lock.yaml
+
+# 本地产物
+*.log
+.DS_Store
+._*
+docs/
+dist/
+*.tar.gz
+*.tgz
+
+# 编辑器
+.vscode/
+.idea/
+
+# 原图目录（scripts/prepare-images.py 的输入）
+raw/
+
+# 只跟踪仓库自带的 9 张示例照片；换成自己的照片后请勿提交 assets/ 的改动
+assets/*.webp
+!assets/01-park-sage.webp
+!assets/02-moon-blossom.webp
+!assets/03-stage-amber.webp
+!assets/04-studio-rose.webp
+!assets/05-denim-night.webp
+!assets/06-butterfly-mauve.webp
+!assets/08-camel-day.webp
+!assets/09-sequin-violet.webp
+!assets/10-new-singer.webp

@@ -1,0 +1,5 @@
+# 让本包装上后被挂载为一个 profile layer。
+# 没有这个 patch，包只会被装成普通依赖，什么也不会发生。
+- insert:
+    - id: yanbao
+      name: dsh-photo-skin

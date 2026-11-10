@@ -1,0 +1,51 @@
+{
+  "name": "dsh-photo-skin",
+  "version": "1.3.2",
+  "description": "言宝 · 九张人像照片随推理档位切换的 DSH 皮肤，滑块同时驱动外观与模型思考等级",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "assets",
+    "src",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "preview.webp"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skin",
+    "theme"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Down-tide/dsh-photo-skin.git"
+  },
+  "homepage": "https://github.com/Down-tide/dsh-photo-skin#readme",
+  "bugs": {
+    "url": "https://github.com/Down-tide/dsh-photo-skin/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  }
+}
