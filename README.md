@@ -20,16 +20,43 @@
 
 **要求**：DeepSeek Harness Desktop。
 
-在 DSH 侧栏打开 **插件 → 添加插件**，输入以下任一地址，按提示重启 DSH：
+安装完**完全退出 DSH 再重新打开**（客户端 bundle 带 immutable 缓存头，只关窗口不生效）。
 
-- GitHub 仓库：`https://github.com/Down-tide/dsh-photo-skin`
-- 本地目录：先 `git clone https://github.com/Down-tide/dsh-photo-skin.git`，再填入克隆目录的路径（需要换成自己的照片时，用这种方式）
-
-也可以在完全退出 DSH Desktop 后，在克隆目录中执行：
+### 方式一：命令行（推荐）
 
 ```sh
+dsh plugin --profile desktop add 'github:Down-tide/yanbao'
+```
+
+### 方式二：插件面板
+
+在 DSH 侧栏打开 **插件 → 添加插件**，填入：
+
+```
+https://github.com/Down-tide/yanbao
+```
+
+### 方式三：克隆到本地
+
+适合要换成自己照片、或者想改代码的情况：
+
+```sh
+git clone https://github.com/Down-tide/yanbao.git
+cd yanbao
 dsh plugin --profile desktop add .
 ```
+
+装成本地链接后，改源码只需 `node scripts/build.mjs`，重启 DSH 即生效，无需重装。
+
+### 装完验证
+
+浏览器打开（端口换成你当前 DSH 的端口）：
+
+```
+http://127.0.0.1:<端口>/plugins/dsh-photo-skin/assets.json
+```
+
+返回 `{"count": 9, ...}` 表示素材正常。
 
 ## 使用
 
@@ -98,5 +125,4 @@ node scripts/build.mjs
 ## 致谢
 
 - [滑动变祖（dsh-liang-skin）](https://github.com/kingOfSoySauce/dsh-liang-skin)：本皮肤的交互与架构参考了该项目。
-- [DeepSeek](https://www.deepseek.com)：DeepSeek Harness 平台与模型。
-- [Claude](https://claude.com)（Anthropic）：参与了本项目的开发。
+- [DeepSeek](https://www.deepseek.com)、[Claude](https://claude.com) 与 [ChatGPT](https://chatgpt.com)：本项目在它们的协助下设计、编写和测试。

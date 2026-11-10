@@ -33,11 +33,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Down-tide/dsh-photo-skin.git"
+    "url": "git+https://github.com/Down-tide/yanbao.git"
   },
-  "homepage": "https://github.com/Down-tide/dsh-photo-skin#readme",
+  "homepage": "https://github.com/Down-tide/yanbao#readme",
   "bugs": {
-    "url": "https://github.com/Down-tide/dsh-photo-skin/issues"
+    "url": "https://github.com/Down-tide/yanbao/issues"
   },
   "dsh": {
     "bundle": {
