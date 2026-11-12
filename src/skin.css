@@ -187,6 +187,24 @@ body[data-photo-skin="on"] [class*="_card"]:has(textarea) {
 }
 
 /* ───────────────────────── 3. 背景层 ───────────────────────── */
+/*
+ * body 必须有一层不透明底色。
+ *
+ * 为什么：DSH 0.2.2-rc.2 起，macOS 的窗口拖动区域按「实际绘制出的像素」
+ * 计算（见 AppFrame.module.css 的注释：覆盖窗口的表面必须 portal 到
+ * #root 旁，排在所有 drag row 之后）。本皮肤把 --dsw-alias-bg-base、
+ * _frame、侧栏 _root 全部透明化，整幅页面的底色只剩下面这层
+ * z-index:-1 的 fixed 元素 —— 负层级绘制在容器背景之下，Electron 不把
+ * 它算进 drag region，于是 topStrip / logoRow / header 底下是透空的，
+ * 窗口拖不动。
+ *
+ * 给 body 补一层和背景层同色的实底，视觉上完全一致（背景层本来就铺满
+ * 整个窗口、盖住这块），但窗口有了真实的绘制像素，拖动恢复。
+ */
+body[data-photo-skin="on"] {
+  background-color: var(--ps-backdrop, #151517);
+}
+
 #photo-skin-layer {
   position: fixed;
   inset: 0;
