@@ -187,24 +187,6 @@ body[data-photo-skin="on"] [class*="_card"]:has(textarea) {
 }
 
 /* ───────────────────────── 3. 背景层 ───────────────────────── */
-/*
- * body 必须有一层不透明底色。
- *
- * 为什么：DSH 0.2.2-rc.2 起，macOS 的窗口拖动区域按「实际绘制出的像素」
- * 计算（见 AppFrame.module.css 的注释：覆盖窗口的表面必须 portal 到
- * #root 旁，排在所有 drag row 之后）。本皮肤把 --dsw-alias-bg-base、
- * _frame、侧栏 _root 全部透明化，整幅页面的底色只剩下面这层
- * z-index:-1 的 fixed 元素 —— 负层级绘制在容器背景之下，Electron 不把
- * 它算进 drag region，于是 topStrip / logoRow / header 底下是透空的，
- * 窗口拖不动。
- *
- * 给 body 补一层和背景层同色的实底，视觉上完全一致（背景层本来就铺满
- * 整个窗口、盖住这块），但窗口有了真实的绘制像素，拖动恢复。
- */
-body[data-photo-skin="on"] {
-  background-color: var(--ps-backdrop, #151517);
-}
-
 #photo-skin-layer {
   position: fixed;
   inset: 0;
@@ -212,6 +194,27 @@ body[data-photo-skin="on"] {
   pointer-events: none;
   overflow: hidden;
   background-color: var(--ps-backdrop);
+
+  /*
+   * 背景层不参与窗口拖动区的计算。
+   *
+   * 不加这条，开启皮肤后 macOS 窗口拖不动（DSH 0.2.2-rc.2 实测）。
+   * 原因：DSH 的 base.css 有
+   *     html[data-platform=darwin] body > :not(#root) { -webkit-app-region: no-drag }
+   * 本层挂在 document.body 下、又不是 #root，于是整层被标成 no-drag；
+   * 它铺满整个窗口（inset: 0），而 Electron 的 app-region 是几何运算、
+   * 按文档顺序依次合成 —— 本层是 body 的最后一个子元素，排在侧栏
+   * topStrip 和会话 header 这些 drag row 之后，于是把它们全减掉了。
+   * DSH 在 AppFrame.module.css 里写了同一条顺序规则：盖住窗口又要保持
+   * 可点击的层才需要排在 drag row 之后；本层只是背景，不需要。
+   *
+   * 复位成 initial 后本层既不加也不减拖动区，drag row 照常生效。
+   * !important 是必须的：DSH 那条选择器的优先级（含 #root）高于本条。
+   *
+   * 实测（真机 DevTools A/B）：只去掉 body 底色 → 拖不动；
+   * 复位本层 app-region → 拖得动。所以修的是这里，不是 body 的底色。
+   */
+  -webkit-app-region: initial !important;
 }
 
 /*
